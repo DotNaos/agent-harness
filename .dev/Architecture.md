@@ -156,6 +156,35 @@ Rules:
 
 ---
 
+## Workspace Folder Structure
+
+The workspace uses a flat directory structure within each project to manage the source code and isolate concurrent feature development. 
+
+```text
+Projects/
+  <project>/
+    base/
+    feature-<name>/
+    feature-<name>/
+```
+
+- **`Projects/`**: The root directory containing all managed projects.
+- **`<project>/`**: The container directory for a single project's entire workspace. All worktrees and environments for this project checkouts reside here.
+- **`base/`**: The primary, long-running codebase. This is the foundation of the project repository (typically tracking `main` or `master`). 
+- **`feature-<name>/`**: Isolated worktrees that serve as dedicated feature runtimes for parallel work. These environments prevent state or dependency conflicts between concurrent tasks. All feature folders live directly next to `base/` inside the project folder.
+
+### Example
+
+```text
+Projects/
+  agent-harness/
+    base/
+    feature-login-ui/
+    feature-api-auth/
+```
+
+---
+
 ## Implementation Principle
 
 Build the foundation in this order:
